@@ -19,7 +19,7 @@ body{
     display: grid;
     place-items: center;
 }
-/*navigation styles start*/
+/*navigation styles start...for mobile/smaller displays*/
 header{
     background: var(--background);
     text-align: center;
@@ -69,12 +69,12 @@ nav{
     width: 100%;
     transform: scale(1, 0);
     transform-origin: bottom;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.4s ease-in-out;/*the transition affects the content of the 'nav' tag (blue bg)*/
 }
 nav ul{
     margin: 0;
     padding: 0;
-    list-style: none;;
+    list-style: none;
 }
 nav li{
     margin-bottom: 1em;
@@ -84,12 +84,72 @@ nav a{
     text-decoration: none;
     font-size: 1.2rem;
     text-transform: uppercase;
-    color: cornsilk;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 100ms ease-in-out;/*opacity the transition of the content in the 'a' tags 400ms time taken for the content to come up*/
+    /*note: the above transition happens when its not checked*/
 }
 nav a:hover{
-    color: #000;
+    color: rgb(6, 116, 101);
 }
 /*........'~' looks for any preceeding sibling, it doesnt hve to be the immediate*/
 .nav-toggle:checked ~ nav{
     transform: scale(1, 1);
+}
+.nav-toggle:checked ~ nav a{
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 400ms;/*the transition happens when its checked*/
+}
+
+/*....................larger displays.........................*/
+
+
+@media only screen and (min-width: 800px){
+     .nav-toggle-label{
+        display: none;
+     }
+     header{
+         display: grid;
+         grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
+     }
+     .logo{
+         grid-column: 1 / 3;
+     }
+     nav{
+         all: unset;/*it removes all of features we applied on the 'nav' tag before applyin the media querry*/
+         grid-column: 3 / 4;
+         display: flex;
+         justify-content: flex-end;
+         align-items: center;
+     }
+     nav a{
+         opacity: 1;
+         position: relative;
+     }
+     nav ul{
+         display: flex;/*displays the content horizontally*/
+         justify-content: flex-end;/*moves the content to the right*/
+         align-items: center;
+     }
+     nav li{
+         margin-left: 3em;
+         margin-bottom: 0;
+     }
+     nav a::before{
+         /*brings up all this line at the top of the menu*/
+         content: "";
+         display: block;
+         height: 5px;
+         background: rgb(6, 116, 101);
+         position: absolute;
+         bottom: -.75em;
+         left: 0;
+         right: 0;
+         transform: scale(0, 1);/*0,1 shrinks the width instead*/
+         /*transform-origin: left;*/
+         transition: ease-in-out 250ms;
+     }
+     nav a:hover::before{
+         transform: scale(1,1);
+     }
 }
