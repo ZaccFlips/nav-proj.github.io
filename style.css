@@ -67,7 +67,8 @@ nav{
     left: 0;
     background: var(--background);
     width: 100%;
-    display: none;
+    transform: scale(1, 0);
+    transition: ;
 }
 nav ul{
     margin: 0;
@@ -89,5 +90,5 @@ nav a:hover{
 }
 /*........'~' looks for any preceeding sibling, it doesnt hve to be the immediate*/
 .nav-toggle:checked ~ nav{
-    display: block;
+    transform: scale(1, 1);
 }
